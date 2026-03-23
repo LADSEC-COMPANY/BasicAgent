@@ -1,4 +1,4 @@
-# Local AI Agent (Ollama)
+# LADSEC - Local AI Agent 
 
 A helpful AI assistant that runs **entirely on your computer**. Uses Ollama and a local LLM, with tools like `read_file` to read and explain file contents.
 
@@ -7,7 +7,7 @@ A helpful AI assistant that runs **entirely on your computer**. Uses Ollama and 
 ## Architecture
 
 ```
-MyFIRSTAgent/
+BasicAgent/
 ├── main.py              # Entry point - run the agent
 ├── agent/
 │   ├── identity.py     # Agent identity & system prompt (who the agent is)
