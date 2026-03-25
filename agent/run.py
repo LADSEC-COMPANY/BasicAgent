@@ -67,6 +67,7 @@ def main_loop(model: str = "llama3.2:latest") -> int:
     print("Local AI Agent")
     print("A helpful assistant running entirely on your computer.")
     print("Type your request and press Enter. Type 'exit' or 'quit' to stop.")
+    print("Type '/memory' to print the current conversation buffer (no LLM call).")
     print("Available tools: read_file (reads a file and explains its content)\n")
 
     while True:
@@ -80,6 +81,9 @@ def main_loop(model: str = "llama3.2:latest") -> int:
             print("Agent ended.")
             return 0
         if not user_input:
+            continue
+        if user_input.lower() == "/memory":
+            print(memory.format_for_display(), end="\n\n")
             continue
 
         memory.append_user(user_input)

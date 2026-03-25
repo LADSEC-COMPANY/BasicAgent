@@ -32,7 +32,6 @@ def chat(
     }
     if tools:
         payload["tools"] = tools
-
     data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(
         OLLAMA_CHAT_URL,

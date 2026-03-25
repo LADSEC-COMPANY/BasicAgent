@@ -6,14 +6,22 @@ from __future__ import annotations
 
 import json
 
+from .ipconfig import list_ipconfig, LIST_IPCONFIG_DEFINITION
 from .read_file import read_file, READ_FILE_DEFINITION
+from .write_file import write_file, WRITE_FILE_DEFINITION
 
 # All tool definitions for Ollama (OpenAI-compatible format)
-TOOL_DEFINITIONS = [READ_FILE_DEFINITION]
+TOOL_DEFINITIONS = [
+    READ_FILE_DEFINITION,
+    WRITE_FILE_DEFINITION,
+    LIST_IPCONFIG_DEFINITION,
+]
 
 # Map tool name -> callable
 TOOL_EXECUTORS = {
     "read_file": read_file,
+    "write_file": write_file,
+    "list_ipconfig": list_ipconfig,
 }
 
 

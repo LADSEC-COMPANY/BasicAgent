@@ -7,6 +7,7 @@ separate from how we store and recall past turns.
 
 from __future__ import annotations
 
+import json
 from typing import Any
 
 
@@ -38,6 +39,12 @@ class ConversationMemory:
     def get_messages(self) -> list[dict[str, Any]]:
         """Return the full message list for the LLM."""
         return self._messages.copy()
+
+    def format_for_display(self) -> str:
+        """Return a JSON snapshot of stored messages for inspection (does not mutate state)."""
+        if not self._messages:
+            return "(memory empty)"
+        return json.dumps(self._messages, ensure_ascii=False, indent=2)
 
     def rollback_last_user(self) -> None:
         """Remove the last user message (e.g. after an error)."""
