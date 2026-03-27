@@ -7,13 +7,17 @@ from __future__ import annotations
 import json
 
 from .ipconfig import list_ipconfig, LIST_IPCONFIG_DEFINITION
+from .list_files import list_files, LIST_FILES_DEFINITION
 from .read_file import read_file, READ_FILE_DEFINITION
+from .summarize_file import summarize_file, SUMMARIZE_FILE_DEFINITION
 from .write_file import write_file, WRITE_FILE_DEFINITION
 
 # All tool definitions for Ollama (OpenAI-compatible format)
 TOOL_DEFINITIONS = [
     READ_FILE_DEFINITION,
     WRITE_FILE_DEFINITION,
+    LIST_FILES_DEFINITION,
+    SUMMARIZE_FILE_DEFINITION,
     LIST_IPCONFIG_DEFINITION,
 ]
 
@@ -21,6 +25,8 @@ TOOL_DEFINITIONS = [
 TOOL_EXECUTORS = {
     "read_file": read_file,
     "write_file": write_file,
+    "list_files": list_files,
+    "summarize_file": summarize_file,
     "list_ipconfig": list_ipconfig,
 }
 

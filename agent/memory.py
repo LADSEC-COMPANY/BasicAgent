@@ -32,6 +32,7 @@ class ConversationMemory:
         """Append a tool result message."""
         self._messages.append({
             "role": "tool",
+            "name": name,
             "content": content,
             "tool_call_id": tool_call_id,
         })

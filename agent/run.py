@@ -43,6 +43,7 @@ def run_turn(
             return content
 
         # Execute each tool call and add results
+        executed: list[tuple[str, str]] = []
         for tc in tool_calls:
             name = tc.get("function", {}).get("name", "")
             args_str = tc.get("function", {}).get("arguments", "{}")
@@ -50,6 +51,15 @@ def run_turn(
 
             result = execute_tool(name, args_str)
             memory.append_tool_result(call_id, name, result)
+            executed.append((name, result))
+
+        # Single successful summarize_file: return the summary directly. A second LLM
+        # round often ignores or mis-describes tool output on small local models.
+        if len(executed) == 1 and executed[0][0] == "summarize_file":
+            summary = executed[0][1]
+            if summary and not summary.startswith("Error:"):
+                memory.append_assistant({"role": "assistant", "content": summary})
+                return summary
 
         tool_round += 1
 
@@ -68,7 +78,10 @@ def main_loop(model: str = "llama3.2:latest") -> int:
     print("A helpful assistant running entirely on your computer.")
     print("Type your request and press Enter. Type 'exit' or 'quit' to stop.")
     print("Type '/memory' to print the current conversation buffer (no LLM call).")
-    print("Available tools: read_file (reads a file and explains its content)\n")
+    print(
+        "Tools: read_file, write_file, list_files, summarize_file, "
+        "list_ipconfig (network).\n"
+    )
 
     while True:
         try:
